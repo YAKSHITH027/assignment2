@@ -1,6 +1,7 @@
 import { Box, Flex, Image } from '@chakra-ui/react'
 import React from 'react'
 import logo from '../Assets/Sidebar/Marriott_International 1.png'
+import { Link } from 'react-router-dom'
 
 const Sidebar = ({ children }) => {
   return (
@@ -10,9 +11,39 @@ const Sidebar = ({ children }) => {
           <Image src={logo} />
         </Flex>
         <Flex align={'center'} flexDir={'column'} gap='1rem' mt='2rem'>
-          <Box width={'6rem'}>Reporst</Box>
-          <Box width={'6rem'}>Worksapce</Box>
-          <Box width={'6rem'}>Reporst</Box>
+          <Link to='/'>
+            <Box
+              width={'7rem'}
+              py='2px'
+              textAlign={'center'}
+              borderRadius={'4px'}
+              _hover={{ bg: 'rgba(27, 89, 248, 0.1)' }}
+            >
+              Report
+            </Box>
+          </Link>
+          <Link to='/workspace'>
+            <Box
+              width={'7rem'}
+              py='2px'
+              textAlign={'center'}
+              borderRadius={'4px'}
+              _hover={{ bg: 'rgba(27, 89, 248, 0.1)' }}
+            >
+              Worksapce
+            </Box>
+          </Link>
+          <Link to='/setting'>
+            <Box
+              width={'7rem'}
+              py='2px'
+              textAlign={'center'}
+              borderRadius={'4px'}
+              _hover={{ bg: 'rgba(27, 89, 248, 0.1)' }}
+            >
+              Settings
+            </Box>
+          </Link>
         </Flex>
       </Box>
       <Box width={'80%'}>{children}</Box>

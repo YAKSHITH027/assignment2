@@ -2,6 +2,8 @@ import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import Orders from './Pages/Orders'
 import Sidebar from './Components/Sidebar'
+import Reports from './Pages/Reports'
+import Settings from './Pages/Settings'
 
 function App() {
   return (
@@ -11,7 +13,23 @@ function App() {
           path='/'
           element={
             <Sidebar>
+              <Reports />
+            </Sidebar>
+          }
+        />
+        <Route
+          path='/workspace'
+          element={
+            <Sidebar>
               <Orders />
+            </Sidebar>
+          }
+        />
+        <Route
+          path='/setting'
+          element={
+            <Sidebar>
+              <Settings />
             </Sidebar>
           }
         />

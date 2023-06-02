@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Accordion,
   AccordionItem,
@@ -24,6 +24,41 @@ import {
 import mcd from '../Assets/TableImages/MCD.png'
 import { orders } from '../Utils/ordersData'
 const SingleAccordian = () => {
+  const [data, setData] = useState(orders)
+
+  const handleDate = (e) => {
+    let val = e.target.value
+    console.log(val)
+    if (val == 'asc') {
+      let newArr = [...data].sort((a, b) => a.date - b.date)
+      setData(newArr)
+    } else if (val == 'desc') {
+      let newArr = [...data].sort((a, b) => b.date - a.date)
+      setData(newArr)
+    }
+  }
+  const handleAmount = (e) => {
+    let val = e.target.value
+    console.log(val)
+    if (val == 'asc') {
+      let newArr = [...data].sort((a, b) => a.amount - b.amount)
+
+      setData(newArr)
+    } else if (val == 'desc') {
+      let newArr = [...data].sort((a, b) => b.amount - a.amount)
+
+      setData(newArr)
+    }
+  }
+  const handleFilter = (e) => {
+    let val = e.target.value
+    if (val == '') {
+      setData(orders)
+      return
+    }
+    setData(orders.filter((item) => item.status === val))
+  }
+
   return (
     <Accordion defaultIndex={[0]} allowMultiple>
       <AccordionItem>
@@ -38,34 +73,37 @@ const SingleAccordian = () => {
         <AccordionPanel pb={4}>
           <Flex align={'center'} gap='2rem'>
             <Input placeholder='search' />
-            <Select placeholder='Active orders'>
-              <option value='option1'>Option 1</option>
-              <option value='option2'>Option 2</option>
-              <option value='option3'>Option 3</option>
+            <Select placeholder='Active orders' onChange={handleFilter}>
+              <option value='confirmed'>Confirmed</option>
+              <option value='delivered'>Delivered</option>
+              <option value='refund'>Refund Completed(30)</option>
+              <option value='pending'>Pending</option>
             </Select>
-            <Select placeholder='Amount'>
-              <option value='option1'>Option 1</option>
-              <option value='option2'>Option 2</option>
+            <Select placeholder='Amount' onChange={handleAmount}>
+              <option value='asc'>Asc</option>
+              <option value='desc'>Desc</option>
             </Select>
-            <Select placeholder='Placed on'>
-              <option value='option1'>Option 1</option>
-              <option value='option2'>Option 2</option>
-              <option value='option3'>Option 3</option>
+            <Select placeholder='Placed on' onChange={handleDate}>
+              <option value='asc'>Asc</option>
+              <option value='desc'>Desc</option>
             </Select>
             <Text>Options</Text>
           </Flex>
           <TableContainer>
             <Table variant='simple'>
               <Tbody>
-                {orders.map((order) => {
-                  console.log(order)
+                {data.map((order) => {
                   return (
                     <>
                       <Tr>
                         <Td width='18rem'>
                           <Flex align={'center'} gap='5px'>
                             <Box>
-                              <Image src={order.logo} alt='image' />
+                              <Image
+                                width='30px'
+                                src={order.logo}
+                                alt='image'
+                              />
                             </Box>
                             <Box>
                               <Text fontWeight={'600'} fontSize={'14px'}>
